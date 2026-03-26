@@ -8,10 +8,10 @@ A comprehensive collection of non-parametric statistical tests implemented in R,
 
 #### 2. Wilcoxon Signed-Rank Test
 * Used as a more powerful alternative to the Sign Test because it considers both the direction and the **magnitude (rank)** of the differences.
-* Applied to **Single Samples** and **Paired Samples** (e.g., comparing psychotic vs. control groups).
+* Applied to **Single Samples** and **Paired Samples**.
 
 #### 3. Mann-Whitney U Test (Wilcoxon Rank-Sum Test)
-* Used to determine whether there is a significant difference between two **independent groups** (e.g., experimental group vs. control group).
+* Used to determine whether there is a significant difference between two **independent groups**.
 
 #### 4. Chi-Squared Test ($\chi^2$)
 * **Test of Independence**: Evaluates the relationship or association between two categorical variables using contingency tables.
