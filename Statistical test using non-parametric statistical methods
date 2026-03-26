@@ -1,0 +1,515 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "ir",
+      "display_name": "R"
+    },
+    "language_info": {
+      "name": "R"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/C4-H10/Statistical-test-using-non-parametric-statistical-methods-using-R/blob/main/Statistical%20test%20using%20non-parametric%20statistical%20methods\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "#Uji Tanda Sampel Tunggal"
+      ],
+      "metadata": {
+        "id": "Rujm6P5bA3B3"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "skor <- c(93.6, 89.1, 97.7, 84.4, 97.8, 94.5, 88.3, 97.5, 83.7, 94.6, 85.5, 82.6)\n",
+        "median_h0 <- 97.5\n",
+        "skor"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 34
+        },
+        "id": "a-aYmGWZNOjl",
+        "outputId": "20efee56-e675-4568-bf9c-ff15f72d02ad"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "display_data",
+          "data": {
+            "text/html": [
+              "<style>\n",
+              ".list-inline {list-style: none; margin:0; padding: 0}\n",
+              ".list-inline>li {display: inline-block}\n",
+              ".list-inline>li:not(:last-child)::after {content: \"\\00b7\"; padding: 0 .5ex}\n",
+              "</style>\n",
+              "<ol class=list-inline><li>93.6</li><li>89.1</li><li>97.7</li><li>84.4</li><li>97.8</li><li>94.5</li><li>88.3</li><li>97.5</li><li>83.7</li><li>94.6</li><li>85.5</li><li>82.6</li></ol>\n"
+            ],
+            "text/markdown": "1. 93.6\n2. 89.1\n3. 97.7\n4. 84.4\n5. 97.8\n6. 94.5\n7. 88.3\n8. 97.5\n9. 83.7\n10. 94.6\n11. 85.5\n12. 82.6\n\n\n",
+            "text/latex": "\\begin{enumerate*}\n\\item 93.6\n\\item 89.1\n\\item 97.7\n\\item 84.4\n\\item 97.8\n\\item 94.5\n\\item 88.3\n\\item 97.5\n\\item 83.7\n\\item 94.6\n\\item 85.5\n\\item 82.6\n\\end{enumerate*}\n",
+            "text/plain": [
+              " [1] 93.6 89.1 97.7 84.4 97.8 94.5 88.3 97.5 83.7 94.6 85.5 82.6"
+            ]
+          },
+          "metadata": {}
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "Oss-Q29LAhkI",
+        "outputId": "9c21d633-616e-4b0c-c6a9-ed1b238f80b8"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "-3.9 -8.4 0.2 -13.1 0.3 -3 -9.2 0 -13.8 -2.9 -12 -14.9 \n",
+            "jumlah sampel (n): 11 \n",
+            "k (positif):  2 \n",
+            "P-Value: 0.03271484 \n"
+          ]
+        }
+      ],
+      "source": [
+        "selisih <- skor - median_h0\n",
+        "cat(selisih, \"\\n\")\n",
+        "\n",
+        "n <- sum(selisih != 0) #jumlah sampel\n",
+        "cat(\"jumlah sampel (n):\", n, \"\\n\")\n",
+        "\n",
+        "k <- sum(selisih > 0)\n",
+        "cat(\"k (positif): \", k, \"\\n\")\n",
+        "\n",
+        "p_value <- pbinom(k, size = n, prob = 0.5)\n",
+        "cat(\"P-Value:\", p_value, \"\\n\")"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "#Uji Tanda Sampel Berpasangan"
+      ],
+      "metadata": {
+        "id": "sEtaGCaARefY"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "sebelum <- c(2.7, 4.2, 3.3, 5.3, 4.2, 3.5, 6.5, 4.8, 3.7, 7.1)\n",
+        "sesudah <- c(4.5, 2.6, 1.4, 2.5, 2.5, 2.3, 3.0, 2.6, 1.9, 0.4)\n",
+        "selisih <- sebelum - sesudah\n",
+        "selisih"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 34
+        },
+        "id": "3UQz9Fn-R418",
+        "outputId": "2e7eebfe-9cc5-495d-dc35-63de1772c813"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "display_data",
+          "data": {
+            "text/html": [
+              "<style>\n",
+              ".list-inline {list-style: none; margin:0; padding: 0}\n",
+              ".list-inline>li {display: inline-block}\n",
+              ".list-inline>li:not(:last-child)::after {content: \"\\00b7\"; padding: 0 .5ex}\n",
+              "</style>\n",
+              "<ol class=list-inline><li>-1.8</li><li>1.6</li><li>1.9</li><li>2.8</li><li>1.7</li><li>1.2</li><li>3.5</li><li>2.2</li><li>1.8</li><li>6.7</li></ol>\n"
+            ],
+            "text/markdown": "1. -1.8\n2. 1.6\n3. 1.9\n4. 2.8\n5. 1.7\n6. 1.2\n7. 3.5\n8. 2.2\n9. 1.8\n10. 6.7\n\n\n",
+            "text/latex": "\\begin{enumerate*}\n\\item -1.8\n\\item 1.6\n\\item 1.9\n\\item 2.8\n\\item 1.7\n\\item 1.2\n\\item 3.5\n\\item 2.2\n\\item 1.8\n\\item 6.7\n\\end{enumerate*}\n",
+            "text/plain": [
+              " [1] -1.8  1.6  1.9  2.8  1.7  1.2  3.5  2.2  1.8  6.7"
+            ]
+          },
+          "metadata": {}
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "n <- sum(selisih != 0) #jumlah sampel\n",
+        "cat(\"jumlah sampel (n):\", n, \"\\n\")\n",
+        "\n",
+        "k <- sum(selisih < 0)\n",
+        "cat(\"k (negatif): \", k, \"\\n\")\n",
+        "\n",
+        "p_value <- pbinom(k, size = n, prob = 0.5)\n",
+        "cat(\"P-Value:\", p_value, \"\\n\")"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "f5UWGxXdgjTI",
+        "outputId": "095b2a20-fe0d-419f-9172-04ebbc77f5a8"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "jumlah sampel (n): 10 \n",
+            "k (negatif):  1 \n",
+            "P-Value: 0.01074219 \n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "#Uji Wilcoxon Sampel Tunggal"
+      ],
+      "metadata": {
+        "id": "q_g_uFb4pJDF"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "skor <- c(33, 19, 40, 35, 51, 41, 27, 23, 39, 21,\n",
+        "          41, 31, 46, 51, 34, 37, 36, 55, 52, 32)\n",
+        "median_h0 <- 45.32"
+      ],
+      "metadata": {
+        "id": "0ZjFS0SZpN6j"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "hasil_uji <- wilcox.test(skor, mu = median_h0, alternative = \"less\", exact = FALSE)\n",
+        "print(hasil_uji)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "Q8jFjl1Kp0HC",
+        "outputId": "75f99f55-f471-43d7-e273-e731720446b1"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "\n",
+            "\tWilcoxon signed rank test with continuity correction\n",
+            "\n",
+            "data:  skor\n",
+            "V = 31, p-value = 0.003031\n",
+            "alternative hypothesis: true location is less than 45.32\n",
+            "\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "#Uji Wilcoxon Sampel Berpasangan"
+      ],
+      "metadata": {
+        "id": "6y6hwJqQsatm"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "psikotik <- c(1.74, 1.44, 2.12, 1.80, 2.00, 2.70, 1.96, 1.46, 1.82, 1.40)\n",
+        "kontrol  <- c(2.46, 1.88, 2.38, 1.94, 2.14, 1.60, 1.96, 1.82, 1.80, 1.84)"
+      ],
+      "metadata": {
+        "id": "DIj8poaasd2P"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "hasil_uji <- wilcox.test(psikotik, kontrol, paired = TRUE, exact = FALSE)\n",
+        "print(hasil_uji)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "yD8zsuMQsiHF",
+        "outputId": "57c2662a-99ff-4035-ebab-5290c1e0477e"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "\n",
+            "\tWilcoxon signed rank test with continuity correction\n",
+            "\n",
+            "data:  psikotik and kontrol\n",
+            "V = 10, p-value = 0.1551\n",
+            "alternative hypothesis: true location shift is not equal to 0\n",
+            "\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "#Uji Mann Whitney"
+      ],
+      "metadata": {
+        "id": "VpMcBZZPuogT"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "eksperimental <- c(73, 42, 90, 58, 62)\n",
+        "kontrol <- c(50, 23, 68, 40, 45)"
+      ],
+      "metadata": {
+        "id": "VOGEy2P6uqji"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "hasil_uji <- wilcox.test(eksperimental, kontrol, alternative = \"greater\")\n",
+        "print(hasil_uji)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "XZHdz06ZuuV0",
+        "outputId": "8c8f16e5-b7e5-4b63-fc0b-b9d19b5a5d6b"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "\n",
+            "\tWilcoxon rank sum exact test\n",
+            "\n",
+            "data:  eksperimental and kontrol\n",
+            "W = 20, p-value = 0.0754\n",
+            "alternative hypothesis: true location shift is greater than 0\n",
+            "\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "#Kai Kuadrat (Memeriksa Ketidaktergantungan)"
+      ],
+      "metadata": {
+        "id": "4VA4Kbjm4Zat"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "data_tabel <- matrix(c(31, 17, 19, 33), nrow = 2, byrow = TRUE)\n",
+        "rownames(data_tabel) <- c(\"Psikiatrik_Ya\", \"Psikiatrik_Tidak\")\n",
+        "colnames(data_tabel) <- c(\"Mandul\", \"Subur\")\n",
+        "\n",
+        "data_tabel"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 129
+        },
+        "id": "xKfL3uGd4hK-",
+        "outputId": "eca8de60-d870-45fc-bb7c-82d854d0bf2c"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "display_data",
+          "data": {
+            "text/html": [
+              "<table class=\"dataframe\">\n",
+              "<caption>A matrix: 2 × 2 of type dbl</caption>\n",
+              "<thead>\n",
+              "\t<tr><th></th><th scope=col>Mandul</th><th scope=col>Subur</th></tr>\n",
+              "</thead>\n",
+              "<tbody>\n",
+              "\t<tr><th scope=row>Psikiatrik_Ya</th><td>31</td><td>17</td></tr>\n",
+              "\t<tr><th scope=row>Psikiatrik_Tidak</th><td>19</td><td>33</td></tr>\n",
+              "</tbody>\n",
+              "</table>\n"
+            ],
+            "text/markdown": "\nA matrix: 2 × 2 of type dbl\n\n| <!--/--> | Mandul | Subur |\n|---|---|---|\n| Psikiatrik_Ya | 31 | 17 |\n| Psikiatrik_Tidak | 19 | 33 |\n\n",
+            "text/latex": "A matrix: 2 × 2 of type dbl\n\\begin{tabular}{r|ll}\n  & Mandul & Subur\\\\\n\\hline\n\tPsikiatrik\\_Ya & 31 & 17\\\\\n\tPsikiatrik\\_Tidak & 19 & 33\\\\\n\\end{tabular}\n",
+            "text/plain": [
+              "                 Mandul Subur\n",
+              "Psikiatrik_Ya    31     17   \n",
+              "Psikiatrik_Tidak 19     33   "
+            ]
+          },
+          "metadata": {}
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "hasil_uji <- chisq.test(data_tabel)\n",
+        "print(hasil_uji)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "_qRPUg7Y4nO8",
+        "outputId": "d190154a-2b21-4ed5-8cbf-c7701ea46c41"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "\n",
+            "\tPearson's Chi-squared test with Yates' continuity correction\n",
+            "\n",
+            "data:  data_tabel\n",
+            "X-squared = 6.7708, df = 1, p-value = 0.009266\n",
+            "\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "#Kai Kuadrat Memerika Homogenitas"
+      ],
+      "metadata": {
+        "id": "xtqqMdbk6QIp"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "data_homogenitas <- matrix(c(775, 687, 76, 170), nrow = 2, byrow = TRUE)\n",
+        "\n",
+        "rownames(data_homogenitas) <- c(\"Terdaftar\", \"Tak_Terdaftar\")\n",
+        "colnames(data_homogenitas) <- c(\"Bujangan\", \"Menikah\")\n",
+        "\n",
+        "data_homogenitas"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 129
+        },
+        "id": "5dbqTI4z6WpU",
+        "outputId": "1b805c8c-7022-4033-ff9c-dc304066f6ff"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "display_data",
+          "data": {
+            "text/html": [
+              "<table class=\"dataframe\">\n",
+              "<caption>A matrix: 2 × 2 of type dbl</caption>\n",
+              "<thead>\n",
+              "\t<tr><th></th><th scope=col>Bujangan</th><th scope=col>Menikah</th></tr>\n",
+              "</thead>\n",
+              "<tbody>\n",
+              "\t<tr><th scope=row>Terdaftar</th><td>775</td><td>687</td></tr>\n",
+              "\t<tr><th scope=row>Tak_Terdaftar</th><td> 76</td><td>170</td></tr>\n",
+              "</tbody>\n",
+              "</table>\n"
+            ],
+            "text/markdown": "\nA matrix: 2 × 2 of type dbl\n\n| <!--/--> | Bujangan | Menikah |\n|---|---|---|\n| Terdaftar | 775 | 687 |\n| Tak_Terdaftar |  76 | 170 |\n\n",
+            "text/latex": "A matrix: 2 × 2 of type dbl\n\\begin{tabular}{r|ll}\n  & Bujangan & Menikah\\\\\n\\hline\n\tTerdaftar & 775 & 687\\\\\n\tTak\\_Terdaftar &  76 & 170\\\\\n\\end{tabular}\n",
+            "text/plain": [
+              "              Bujangan Menikah\n",
+              "Terdaftar     775      687    \n",
+              "Tak_Terdaftar  76      170    "
+            ]
+          },
+          "metadata": {}
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "hasil_tes <- chisq.test(data_homogenitas)\n",
+        "print(hasil_tes)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "WlnUUv2C6bvp",
+        "outputId": "55a67d0d-33d0-448e-d7a3-256ca1fe90de"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "\n",
+            "\tPearson's Chi-squared test with Yates' continuity correction\n",
+            "\n",
+            "data:  data_homogenitas\n",
+            "X-squared = 40.315, df = 1, p-value = 2.161e-10\n",
+            "\n"
+          ]
+        }
+      ]
+    }
+  ]
+}
